@@ -41,8 +41,6 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - uses: actions/checkout@v2
-        with:
-
 
       - name: Build
         run: |
