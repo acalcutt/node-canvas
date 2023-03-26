@@ -252,7 +252,9 @@ jobs:
           npm install --ignore-scripts
           msys2 -c ". prebuild/Windows/preinstall.sh"
           msys2 -c "cp prebuild/Windows/binding.gyp binding.gyp"
-          msys2 -c "node-gyp rebuild -j 2"
+          Invoke-WebRequest "https://ftp.gnome.org/pub/GNOME/binaries/win64/gtk+/2.22/gtk+-bundle_2.22.1-20101229_win64.zip" -OutFile gtk_x64.zip
+          7z e gtk_x64.zip
+          npm install --build-from-source
 
       - name: Install Depends
         run: |

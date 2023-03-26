@@ -7,7 +7,6 @@ deps="cairo-2 png16-16 jpeg-8 pango-1.0-0 pangocairo-1.0-0 gobject-2.0-0 glib-2.
 pacman --noconfirm -S \
   wget \
   unzip \
-  ucrt64/mingw-w64-ucrt-x86_64-gtk2 \
   ucrt64/mingw-w64-ucrt-x86_64-binutils \
   ucrt64/mingw-w64-ucrt-x86_64-tools \
   ucrt64/mingw-w64-ucrt-x86_64-libjpeg-turbo \
