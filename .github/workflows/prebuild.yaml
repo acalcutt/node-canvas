@@ -215,7 +215,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [12]
+        node: [16]
         canvas_tag: ["v2.11.1"] # e.g. "v2.6.1"
     name: ${{ matrix.canvas_tag}}, Node.js ${{ matrix.node }}, Windows
     runs-on: windows-2019
@@ -247,14 +247,11 @@ jobs:
         run: |
           git checkout ${{ matrix.canvas_tag }}
           git checkout $env:GITHUB_SHA -- prebuild/
-          npm install -g node-gyp@8
-          npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
+          npm install -g node-gyp@6
           npm install --ignore-scripts
-          Invoke-WebRequest "https://ftp.gnome.org/pub/GNOME/binaries/win64/gtk+/2.22/gtk+-bundle_2.22.1-20101229_win64.zip" -OutFile gtk_x64.zip
-          7z x gtk_x64.zip -oc:\GTK -y
           msys2 -c ". prebuild/Windows/preinstall.sh"
           msys2 -c "cp prebuild/Windows/binding.gyp binding.gyp"
-          npm install --build-from-source
+          msys2 -c "node-gyp rebuild -j 2"
 
       - name: Install Depends
         run: |
