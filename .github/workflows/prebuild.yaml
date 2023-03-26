@@ -173,6 +173,7 @@ jobs:
       # TODO drop when https://github.com/actions/virtual-environments/pull/632 lands
       - uses: numworks/setup-msys2@v1
         with:
+          msystem: UCRT64
           update: true
           path-type: inherit
 
