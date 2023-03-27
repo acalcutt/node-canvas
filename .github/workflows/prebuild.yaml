@@ -215,7 +215,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [16]
+        node: [16] # 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
         canvas_tag: ["v2.11.2"] # e.g. "v2.6.1"
     name: ${{ matrix.canvas_tag}}, Node.js ${{ matrix.node }}, Windows
     runs-on: windows-2019
@@ -247,11 +247,12 @@ jobs:
         run: |
           git checkout ${{ matrix.canvas_tag }}
           git checkout $env:GITHUB_SHA -- prebuild/
-          npm install -g node-gyp@6
+          npm install -g node-gyp@8
+          npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
           npm install --ignore-scripts
           msys2 -c ". prebuild/Windows/preinstall.sh"
           msys2 -c "cp prebuild/Windows/binding.gyp binding.gyp"
-          msys2 -c "node-gyp rebuild -j 2"
+          npm install --build-from-source
 
       - name: Install Depends
         run: |
